@@ -3,12 +3,11 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { FacebookRounded, FavoriteBorderOutlined, Instagram, Twitter } from '@mui/icons-material'
-import { Link } from '@mui/material'
 import CartSidebar from '../Sidebar/CartSidebar'
 import { useRef } from 'react'
 import SearchBar from '../Forms/SearchForm'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // const navigation = {
 //     // categories: [
@@ -135,8 +134,8 @@ const navigation = {
     pages: [
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
-        { name: 'Services', href: '/services' },
-        // ... other pages
+        { name: 'Shop', href: '/shop' },
+        { name: 'Contact', href: '/contact' },
     ]
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../features/cart/cartSlice';
 import CartSidebar from '../../Components/Sidebar/CartSidebar';
@@ -12,10 +12,21 @@ const ShopPage = () => {
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
+  const cartItems = useSelector((state) => state.cart.items);
+  const [showAlert, setShowAlert] = useState(false);
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
-    setIsOpen(true)
+  const handleAddToCart = (product, quantity) => {
+    const updatedProduct = { ...product, quantity };
+    const cartQuantity = cartItems.find((item) => item.id === product.id)?.quantity || 0;
+    if (cartQuantity + quantity > 10) {
+      setShowAlert(true);
+    } else {
+      dispatch(addToCart(updatedProduct));
+    }
+  };
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
   };
 
   return (
@@ -25,7 +36,13 @@ const ShopPage = () => {
       <Container maxWidth="xl" sx={{ marginTop: '40px', marginBottom: '40px' }}>
         <Grid container spacing={2}>
           {products.map((product) => (
-            <ProductStyle1 key={product.id} handleAddToCart={handleAddToCart} product={product} />
+            <ProductStyle1
+              key={product.id}
+              handleAddToCart={handleAddToCart}
+              showAlert={showAlert}
+              handleCloseAlert={handleCloseAlert}
+              product={product} 
+              />
           ))}
         </Grid>
       </Container>
@@ -35,7 +52,7 @@ const ShopPage = () => {
 
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product) => (
-              <ProductStyle2 product={product} />
+              <ProductStyle2 key={product.id} product={product} />
             ))}
           </div>
         </div>
