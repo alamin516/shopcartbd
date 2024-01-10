@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { removeFromCart, updateCartItemQuantity } from '../../features/cart/cartSlice';
 import { Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,7 +13,9 @@ import { formattedCurrency } from '../../utils/helpers';
 
 const CartSidebar = ({ isOpen, setIsOpen }) => {
   const cartItems = useSelector((state) => state.cart.items);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
 
   const handleRemoveFromCart = (itemId) => {
     dispatch(removeFromCart(itemId));
@@ -25,6 +27,8 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
     }
     dispatch(updateCartItemQuantity({ itemId, newQuantity }));
   };
+
+
 
   // const totalPrice = cartItems?.reduce((prev, next) => prev + parseFloat(next.price.replace("$", " ")), 0);
   const subTotalPrice = cartItems.reduce((total, item) => total + (parseFloat(item?.price?.replace("$", '')) * parseInt(item.quantity)), 0);
@@ -163,38 +167,50 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
                           Checkout
                         </Link> : <Link
                           to="/checkout"
+                          onClick={() => setIsOpen(false)}
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
                         </Link>}
                       </div>
-                      <div className="mt-6 flex justify-between text-center text-sm text-gray-500">
-                        <div>
-                          {/* or {" "} */}
+                      <div className="mt-4">
+                          <button
+                            type="button"
+                            className="w-full flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                            onClick={() => {
+                              setIsOpen(false)
+                              navigate('/cart')
+                            }}
+                            >View Cart
+                            {/* <span aria-hidden="true"> &rarr;</span> */}
+                          </button>
+                      </div>
+                      <div className="flex justify-between text-center text-sm text-gray-500">
+                        {/* <div className=''>
                           <Link to="/shop">
                             <button
                               type="button"
-                              className="font-medium text-indigo-600 hover:text-indigo-500"
+                              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                               onClick={() => setIsOpen(false)}
                             >
                               Continue Shopping
                               <span aria-hidden="true"> &rarr;</span>
                             </button>
                           </Link>
-                        </div>
-                        <div>
-                          {/* or {" "} */}
-                          <Link to="/cart">
+                        </div> 
+                        */}
+                        {/* <div>
+                          <Link to="/cart" className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
                             <button
                               type="button"
-                              className="font-medium text-indigo-600 hover:text-indigo-500"
                               onClick={() => setIsOpen(false)}
                             >
                               Cart
                               <span aria-hidden="true"> &rarr;</span>
                             </button>
                           </Link>
-                        </div>
+                        </div> 
+                        */}
                       </div>
                     </div>
                   </div>

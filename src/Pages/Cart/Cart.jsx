@@ -47,7 +47,7 @@ const CartPage = () => {
                         <Link to={`/shop`} >
                             <Button
                                 variant="outlined"
-                                className="font-medium text-indigo-600 hover:text-indigo-500 rounded-md"
+                                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                 startIcon={<ArrowBack />}
                             >
                                 Shopping Now
