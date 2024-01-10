@@ -19,17 +19,17 @@ const Checkout = () => {
   };
 
   if (cartItems?.length === 0) {
-    window.location.href = 'http://localhost:5173/cart';
-    
-}
+    navigate('/cart'); // Redirect to '/cart' if cart is empty
+    return null; // Render nothing while redirecting
+  }
 
   return (
     <div>
       <h2 className="text-2xl mb-6 font-semibold text-center text-white py-3 bg-gray-600">Checkout</h2>
-      <div className="w-9/12 mx-auto">
+      <div className="lg:w-9/12 mx-auto px-2 lg:px-0">
         <Breadcrumb/>
         <form className="py-20" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
             <div>
               <ContactInformation formData={formData} setFormData={setFormData} />
               <ShippingInformation formData={formData} setFormData={setFormData} />

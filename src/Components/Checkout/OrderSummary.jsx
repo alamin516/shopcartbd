@@ -16,9 +16,9 @@ const OrderSummary = () => {
     const navigate = useNavigate()
     const [showAlert, setShowAlert] = useState(false);
 
-  const handleCloseAlert = () => {
-    setShowAlert(false);
-  };
+    const handleCloseAlert = () => {
+        setShowAlert(false);
+    };
 
 
     // Calculate total price and total quantity
@@ -38,14 +38,13 @@ const OrderSummary = () => {
 
 
     if (cartItems.length === 0) {
-        navigate('/cart', { replace: true });
-        return null;
+        navigate('/cart');
     }
 
     return (
-        <div className="px-4 py-6 sm:px-0">
+        <div className="lg:px-4 py-6 sm:px-0">
             <h2 className="text-lg font-semibold mb-4">Order summary</h2>
-            <div className="border border-gray-200 rounded-lg p-4">
+            <div className="border border-gray-200 rounded-lg lg:p-4">
                 {/* <h3 className="text-base font-medium mb-4">Items in your cart</h3> */}
                 <ul className="space-y-6">
                     {/* List Item */}
@@ -73,60 +72,63 @@ const OrderSummary = () => {
                                         <p className="text-sm text-gray-500">Black</p>
                                         <p className="text-sm text-gray-500">L</p>
                                     </div>
-                                    <div className="flex items-center justify-between">
+                                    <div className="lg:flex items-center justify-between">
                                         {/* Product Price */}
-                                        <Currency item={item}/>
+                                        <Currency item={item} />
                                         {/* Quantity Selector */}
-                                        <div className="flex items-center">
+                                        <div className="flex gap-10 py-2">
                                             <div className="flex items-center">
-                                                <label htmlFor="quantity" className="mr-2">
-                                                    Quantity:
-                                                </label>
                                                 <div className="flex items-center">
-                                                    <button
-                                                        className="px-3 py-1 border border-gray-300 rounded-l-md bg-gray-100 text-gray-500 hover:bg-gray-200"
-                                                        onClick={() => {
-                                                            if (item.quantity <= 1) {
-                                                                // Handle minimum quantity reached (if needed)
-                                                                return;
-                                                            }
-                                                            handleQuantityChange(item.id, item.quantity - 1);
-                                                        }}
-                                                        disabled={item.quantity <= 1}
-                                                    >
-                                                        <RemoveIcon />
-                                                    </button>
-                                                    <span className="text-base px-3 py-1 border border-gray-300 bg-gray-100 text-gray-700">
-                                                        {item.quantity}
-                                                    </span>
-                                                    <button
-                                                        className="px-3 py-1 border border-gray-300 rounded-r-md bg-gray-100 text-gray-500 hover:bg-gray-200"
-                                                        onClick={() => {
-                                                            if (item.quantity >= 10) {
-                                                                // Show alert when quantity exceeds 10
-                                                                setShowAlert(true);
-                                                                return;
-                                                            }
-                                                            handleQuantityChange(item.id, item.quantity + 1);
-                                                        }}
+                                                    <label htmlFor="quantity" className="mr-2">
+                                                        {/* Quantity: */}
+                                                    </label>
+                                                    <div className="flex items-center">
+                                                        <button
+                                                            className="lg:px-3 py-1 border border-gray-300 rounded-l-md bg-gray-100 text-gray-500 hover:bg-gray-200"
+                                                            onClick={() => {
+                                                                if (item.quantity <= 1) {
+                                                                    // Handle minimum quantity reached (if needed)
+                                                                    return;
+                                                                }
+                                                                handleQuantityChange(item.id, item.quantity - 1);
+                                                            }}
+                                                            disabled={item.quantity <= 1}
+                                                        >
+                                                            <RemoveIcon />
+                                                        </button>
+                                                        <span className="text-base px-3 py-1 border border-gray-300 bg-gray-100 text-gray-700">
+                                                            {item.quantity}
+                                                        </span>
+                                                        <button
+                                                            className="lg:px-3 py-1 border border-gray-300 rounded-r-md bg-gray-100 text-gray-500 hover:bg-gray-200"
+                                                            onClick={() => {
+                                                                if (item.quantity >= 10) {
+                                                                    // Show alert when quantity exceeds 10
+                                                                    setShowAlert(true);
+                                                                    return;
+                                                                }
+                                                                handleQuantityChange(item.id, item.quantity + 1);
+                                                            }}
                                                         // disabled={item.quantity >= 10}
-                                                    >
-                                                        <AddIcon />
-                                                    </button>
+                                                        >
+                                                            <AddIcon />
+                                                        </button>
+                                                    </div>
+                                                    {/* Snackbar for displaying the alert */}
+                                                    <Snackbar open={showAlert} autoHideDuration={2000} onClose={handleCloseAlert}>
+                                                        <Alert onClose={handleCloseAlert} severity="warning" sx={{ width: '100%' }}>
+                                                            Quantity cannot exceed 10.
+                                                        </Alert>
+                                                    </Snackbar>
                                                 </div>
-                                                {/* Snackbar for displaying the alert */}
-                                                <Snackbar open={showAlert} autoHideDuration={2000} onClose={handleCloseAlert}>
-                                                    <Alert onClose={handleCloseAlert} severity="warning" sx={{ width: '100%' }}>
-                                                        Quantity cannot exceed 10.
-                                                    </Alert>
-                                                </Snackbar>
                                             </div>
-                                        </div>
-                                        {/* Remove Button */}
-                                        <div>
-                                            <button onClick={() => dispatch(removeFromCart(item.id))} className="text-md text-gray-500 hover:text-red-500">
-                                                <DeleteForeverOutlined />
-                                            </button>
+                                            {/* Remove Button */}
+                                            <div>
+                                                <button onClick={() => dispatch(removeFromCart(item.id))} className="text-md text-gray-500 hover:text-red-500
+                                            relative lg:top-0 top-">
+                                                    <DeleteForeverOutlined />
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
