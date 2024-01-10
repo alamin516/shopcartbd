@@ -1,6 +1,6 @@
  ShopCartBD
 
-![ShopCartBD Logo](./path/to/logo.png) <!-- Include your logo here -->
+![ShopCartBD Logo]([https://shopcart-bd.web.app/](https://t3.ftcdn.net/jpg/02/47/48/00/360_F_247480017_ST4hotATsrcErAja0VzdUsrrVBMIcE4u.jpg)) <!-- Include your logo here -->
 
 ShopCartBD is an e-commerce website built with modern web technologies to provide users with a seamless shopping experience. This project utilizes React with Vite, Redux Toolkit, Material UI, and Tailwind CSS for the frontend, and Firebase for hosting.
 
